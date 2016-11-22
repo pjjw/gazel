@@ -87,9 +87,9 @@ func writeRules(file *bzl.File, rules []*bzl.Rule) {
 }
 
 func (v *Venderor) resolve(ipath string) Label {
-	if strings.HasPrefix(ipath, "k8s.io/kubernetes") {
+	if strings.HasPrefix(ipath, "code.uber.internal/infra/statsdex/") {
 		return Label{
-			pkg: strings.TrimPrefix(ipath, "k8s.io/kubernetes/"),
+			pkg: strings.TrimPrefix(ipath, "code.uber.internal/infra/statsdex/"),
 			tag: "go_default_library",
 		}
 	}
@@ -131,12 +131,31 @@ func (v *Venderor) walk(root string, f func(path, ipath string, pkg *build.Packa
 
 func (v *Venderor) walkRepo() error {
 	for _, root := range []string{
-		"./pkg",
-		"./cmd",
-		"./third_party",
-		"./plugin",
+		"./analyze",
+		"./cassandra",
+		"./clients",
+		"./consolidation",
+		"./context",
+		"./elasticsearch",
+		"./encoding",
+		"./filters",
+		"./forecast",
+		"./index",
+		"./integration",
+		"./mocks",
+		"./policy",
+		"./proto",
+		"./protocols",
+		"./query",
+		"./services",
+		"./stats",
+		"./storage",
+		"./tagger",
 		"./test",
-		"./federation",
+		"./tools",
+		"./ts",
+		"./tsdb",
+		"./x",
 	} {
 		if err := v.walk(root, v.updatePkg); err != nil {
 			return err
